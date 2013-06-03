@@ -1,0 +1,38 @@
+HOST: http://i.zeleni.cz/
+
+--- green_locator ---
+
+--
+Basic org unit info
+
+--
+
+list org units found in rectangle formed by upper-left and bottom-righ lat and long
+GET /locator_api/search?ullat=123&ullong=127&brlat=678&brlong=789
+< 200
+< Content-Type: application/json
+[
+{ "type": "orgunit", "location": {"lat": 123, "long" : 150}, "name": "Telč", "id": 322, "date_saved": "2013-06-01" },
+{ "type": "orgunit", "location": {"lat": 227, "long" : 190}, "name": "Praha 6", "id": 128, "date_saved": "2013-06-01" },
+{ "type": "orgunit", "location": {"lat": 229, "long" : 193}, "name": "Praha 7", "id": 128, "date_saved": "2013-06-01" }
+]
+
+Alternatively list clusters of org units found in rectangle formed by upper-left and bottom-righ lat and long, provided we know phys dimension in pixels (TBD)
+GET /locator_api/search?ullat=123&ullong=127&brlat=678&brlong=789&width=200&height=200
+< 200
+< Content-Type: application/json
+[
+{ "type": "cluster", "location": {"lat": 223, "long" : 190}, "name": "3 ZO" },
+{ "type": "orgunit", "location": {"lat": 123, "long" : 150}, "name": "Telč" }
+] 
+
+Get orgunit detail (not exaxtly REST, sorry :). No phone numbers, unless you are not logged-in.
+GET /locator_api/detail?type=orgunit&id=322
+< 200
+< Content-Type: application/json
+{ "type": "orgunit", "location": {"lat": 123, "long" : 150}, "name": "Telč", "id": 322, "date_saved": "2013-06-01", 
+"contacts": [
+    {"role": "predseda", "mail": "predseda-telc@zeleni.cz", "name": "Lukas", "surname": "Polak"}
+    {"role": "pokladnik", "mail": "jiri.pykal@zeleni.cz", "name": "Jiri", "surname": "Pykal"}
+    ] }
+
